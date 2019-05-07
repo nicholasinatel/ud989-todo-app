@@ -21,6 +21,7 @@ var app = app || {};
 			'dblclick label': 'edit',
 			'click .destroy': 'clear',
 			'click .edit-btn': 'edit',
+			'click .priority-btn': 'togglePriority',
 			'keypress .edit': 'updateOnEnter',
 			'keydown .edit': 'revertOnEscape',
 			'blur .edit': 'close'
@@ -51,6 +52,7 @@ var app = app || {};
 
 			this.$el.html(this.template(this.model.toJSON()));
 			this.$el.toggleClass('completed', this.model.get('completed'));
+			this.$el.toggleClass('priority', this.model.get('priority'));
 			this.toggleVisible();
 			this.$input = this.$('.edit');
 			return this;
@@ -72,6 +74,12 @@ var app = app || {};
 			if (this.model.get('completed') == true) {
 				this.model.save({title: this.model.get('title') + ' --done!'});
 			} 
+		},
+
+		// Toggle the `"priority"` state of the model.
+		togglePriority: function() {
+			// console.log("this.$el: ", this.$el.addClass('priority'));
+			this.model.togglePriority();
 		},
 
 		// Switch this view into `"editing"` mode, displaying the input field.
