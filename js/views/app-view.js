@@ -50,6 +50,7 @@ var app = app || {};
 		// of the app doesn't change.
 		render: function () {
 			var completed = app.todos.completed().length;
+			console.log("completed: ", completed);
 			var remaining = app.todos.remaining().length;
 
 			if (app.todos.length) {

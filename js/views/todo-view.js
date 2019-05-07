@@ -15,11 +15,12 @@ var app = app || {};
 		// Cache the template function for a single item.
 		template: _.template($('#item-template').html()),
 
-		// The DOM events specific to an item.
+		// The DOM events specific to an item.`
 		events: {
 			'click .toggle': 'toggleCompleted',
 			'dblclick label': 'edit',
 			'click .destroy': 'clear',
+			'click .edit-btn': 'edit',
 			'keypress .edit': 'updateOnEnter',
 			'keydown .edit': 'revertOnEscape',
 			'blur .edit': 'close'
@@ -68,6 +69,9 @@ var app = app || {};
 		// Toggle the `"completed"` state of the model.
 		toggleCompleted: function () {
 			this.model.toggle();
+			if (this.model.get('completed') == true) {
+				this.model.save({title: this.model.get('title') + ' --done!'});
+			} 
 		},
 
 		// Switch this view into `"editing"` mode, displaying the input field.
